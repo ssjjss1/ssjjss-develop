@@ -1,6 +1,6 @@
 # 깃허브 커밋
 
-커밋한 문제들을 확인 할 수 있습니다.
+깃허브 스텟을 확인 할 수 있습니다.
 
 ![K-Junyyy's GitHub stats](https://github-readme-stats.vercel.app/api?username=ssjjss1&show_icons=true&theme=dark)
 
