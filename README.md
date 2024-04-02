@@ -8,7 +8,12 @@
 
 solved.ac 사이트 내에서의 렝크를 확인 할 수 있습니다.
 
+
+![mazandi profile](http://mazandi.herokuapp.com/api?handle=ssjjss&theme=warm)
+
 [![Solved.ac Profile](http://mazassumnida.wtf/api/generate_badge?boj=ssjjss)](https://solved.ac/ssjjss)
+
+<img src="http://mazandi.herokuapp.com/api?handle=ssjjss2&theme=warm"/>
 
 [![Solved.ac Profile](http://mazassumnida.wtf/api/generate_badge?boj=ssjjss2)](https://solved.ac/ssjjss2)
 
