@@ -8,12 +8,13 @@ long long int f(int a[], int x, int middle, int y) {
 	long long int i = x, j = middle + 1, idx = x, cnt = 0, sum = 0;
 	while (i <= middle && j <= y) {
 		if (a[i] < a[j]) b[idx++]=a[i++], sum += cnt;
-		else b[idx++]=a[j++], cnt += 1;// x와 y를 1씩 카운팅하면서 서로 비교..1)
+		else b[idx++]=a[j++], cnt += 1;// x와 y를 1씩 카운팅하면서 서로 비교..1)cnt:오른쪽에서 오는 모든 화살표
 	}
-	while (i <= middle) b[idx++] = a[i++], sum += cnt;//1)에서 탐색되지 않은 값들을 b에 저장하고 cnt만큼 sum 증가
-	while (j <= y) b[idx++] = a[j++];
+	while (i <= middle) b[idx++] = a[i++], sum += cnt;//1)에서 카운팅 되지 않은 왼쪽 부분
+	while (j <= y) b[idx++] = a[j++];// 1)에서 오른쪽에서 카운팅 되지 않은 부분
 	for (int k = x; k <= y; k++) a[k] = b[k];//a에 정렬된 수를 복사
 	return sum;
+
 }
 void g(int a[], int x, int y) {
 	if (x == y) return;
