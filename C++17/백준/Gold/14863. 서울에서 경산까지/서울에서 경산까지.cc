@@ -17,9 +17,9 @@ int main() {
     }
     int mx = 0;
     dp[1][v[1].a]=v[1].b;
-    dp[1][v[1].c]=v[1].d;
+    dp[1][v[1].c]=max(dp[1][v[1].c],v[1].d);
     for (int i = 2; i <= n; i++) {
-        for (int j = 1; j <= k; j++) {
+        for (int j = 0; j <= k; j++) {
             if (dp[i - 1][j]) {
                 if (j + v[i].a <= k) {
                     dp[i][j + v[i].a] = max(dp[i][j + v[i].a], v[i].b + dp[i - 1][j]);
@@ -30,6 +30,6 @@ int main() {
             }
         }
     }
-    for (int j = 1; j <= k; j++) mx = max(mx, dp[n][j]);
+    for (int j = 0; j <= k; j++) mx = max(mx, dp[n][j]);
     cout << mx;
 }
