@@ -1,105 +1,66 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
-
-int one_check(const vector<vector<int>>& board, int N, int M) {
-    int dx[2] = {1, -1};
-    int dy[2] = {1, -1};
-    
-    for (int y = 0; y < N; y++) {
-        for (int x = 0; x < M; x++) {
-            if (board[y][x] == 0)
-                continue;
-            bool check_x = false;
-            bool check_y = false;
-            for (int i = 0; i < 2; i++) {
-                int nx = x + dx[i];
-                if (nx >= 0 && nx < M && board[y][nx] == 1)
-                    check_x = true;
-                int ny = y + dy[i];
-                if (ny >= 0 && ny < N && board[ny][x] == 1)
-                    check_y = true;
-            }
-            if (check_x && check_y) {
-                cout << y + 1 << " " << x + 1 << endl;
-                return 0;
-            }
-        }
+const int inf = 1e9;
+int n, m, k;
+int d[2004][2004];
+const int dir[] = {1, -1};
+vector<pair<int, int>> v;
+bool f() {
+  for (auto i : v) {
+    int x = i.first, y = i.second;
+    bool flag1 = 0, flag2 = 0;
+    for (int j = 0; j < 2; j++) {
+      int xx = x + dir[j], yy = y + dir[j];
+      if ((yy >= 1 && yy <= m) && d[x][yy] == 1) flag1 = 1;
+      if ((xx >= 1 && xx <= n) && d[xx][y] == 1) flag2 = 1;
     }
-    return -1;
+    if (flag1 && flag2) {
+      cout << x << " " << y << "\n";
+      return 1;
+    }
+  }
+  return 0;
 }
-
 int main() {
-    int N, M, K;
-    cin >> N >> M >> K;
-    
-    vector<vector<int>> board(N, vector<int>(M));
-    
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < M; j++) {
-            cin >> board[i][j];
-        }
+  ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+  cin >> n >> m >> k;
+  for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= m; j++) {
+      cin >> d[i][j];
+      if (d[i][j] == 1) v.push_back({i, j});
     }
-    
-    int seed = 0;
-    for (const auto& row : board) {
-        for (int cell : row) {
-            if (cell == 1)
-                seed++;
-        }
-    }
-    
-    if (2 * K == seed) {
-        cout << 0 << endl;
-        return 0;
-    }
-    
-    cout << 2 * K - seed << endl;
-    
-    if (K == 1) {
-        for (int y = 0; y < N; y++) {
-            for (int x = 0; x < M; x++) {
-                if (board[y][x] == 1) {
-                    cout << y + 1 << " " << x + 1 << endl;
-                    return 0;
-                }
-            }
-        }
-    }
-    
-    if (2 * K - 1 == seed) {
-        if (one_check(board, N, M) != -1) {
-            return 0;
-        }
-    }
-    
-    int start_x = 2001, start_y = 2001;
-    int end_x = -1, end_y = -1;
-    
-    for (int y = 0; y < N; y++) {
-        for (int x = 0; x < M; x++) {
-            if (board[y][x] == 1) {
-                start_x = min(x, start_x);
-                start_y = min(y, start_y);
-                end_x = max(x, end_x);
-                end_y = max(y, end_y);
-            }
-        }
-    }
-    
-    if (start_x == end_x) {
-        for (int i = 0; i < 2 * K - seed; i++) {
-            cout << start_y + seed - K + i + 1 << " " << start_x + 1 << endl;
-        }
-        return 0;
-    }
-    
-    if (start_y == end_y) {
-        for (int i = 0; i < 2 * K - seed; i++) {
-            cout << start_y + 1 << " " << start_x + seed - K + i + 1 << endl;
-        }
-    }
-    
+  }
+  int ans = v.size();
+  if (2 * k == ans) {
+    cout << 0;
     return 0;
+  }
+  cout << 2 * k - ans << "\n";
+  if (k == 1) {
+    for (auto i : v) {
+      cout << i.first << " " << i.second << "\n";
+    }
+    return 0;
+  }
+  if (2 * k - ans == 1) {
+    if (f())
+      return 0;
+  }
+  int x1 = inf, y1 = inf, x2 = 0, y2 = 0;
+  for (auto i : v) {
+    int x = i.first, y = i.second;
+    x1 = min(x, x1);
+    y1 = min(y, y1);
+    x2 = max(x, x2);
+    y2 = max(y, y2);
+  }
+  if (x1 == x2) {
+    for (int i = 0; i < 2 * k - ans; i++) {
+      cout << x1 << " " << y1 + ans - k + i << "\n";
+    }
+  } else if (y1 == y2) {
+    for (int i = 0; i < 2 * k - ans; i++) {
+      cout << x1 + ans - k + i << " " << y1 << "\n";
+    }
+  }
 }
