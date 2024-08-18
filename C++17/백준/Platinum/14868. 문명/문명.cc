@@ -8,14 +8,12 @@ int p[2004 * 2004];
 bool visited[2004][2004];
 vector<pair<int, int>> v;
 int f(int x) {
-  if (p[x] == x)
-    return x;
+  if (p[x] == x) return x;
   return p[x] = f(p[x]);
 }
 void g(int a, int b) {
   a = f(a), b = f(b);
-  if (a != b)
-    p[b] = a;
+  if (a != b) p[b] = a;
 }
 int main() {
   ios::sync_with_stdio(0);
