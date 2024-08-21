@@ -4,7 +4,7 @@ int n, k;
 int dp[31][31][31][504]; 
 bool f(int x, int y, int z, int sum, string s) {
   if (x + y + z == n) {
-    if (sum == k&&x>0&&y>0&&z>0) {
+    if (sum == k) {
       cout << s;
       return 1;
     }
