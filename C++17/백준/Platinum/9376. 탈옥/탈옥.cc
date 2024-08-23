@@ -14,9 +14,8 @@ void f(vector<vector<int>> &d, int x, int y, vector<vector<char>> &c) {
     q.pop();
     for (int i = 0; i < 4; i++) {
       int xx = x + dx[i], yy = y + dy[i];
-      if (xx < 0 || yy < 0 || xx > n + 1 || yy > m + 1 || c[xx][yy] == '*') continue;
-      int ct = d[x][y] + (c[xx][yy] == '#');
-      if (ct < d[xx][yy]) {
+      if (xx < 0 || yy < 0 || xx > n + 1 || yy > m + 1 || c[xx][yy] == '*')
+      continue; int ct = d[x][y] + (c[xx][yy] == '#'); if (ct < d[xx][yy]) {
         d[xx][yy] = ct;
         q.push({xx,yy});
       }
