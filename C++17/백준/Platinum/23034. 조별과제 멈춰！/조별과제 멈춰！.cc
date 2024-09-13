@@ -5,21 +5,17 @@
 #include<algorithm>
 using namespace std;
 typedef long long ll;
-
 ll n, m, t, sum;
 ll p[100004], d[1004][1004];
 vector<pair<int, int>> v1[100004];
-
 struct edge {
     int u, v, c;
     bool operator<(const edge& a) { return c < a.c; }
 } a[100004];
-
 ll f(ll x) {
     if (x == p[x]) return x;
     return p[x] = f(p[x]);
 }
-
 void g(ll b) {
     queue<int> q;
     bool visited[100004];
@@ -39,17 +35,13 @@ void g(ll b) {
         }
     }
 }
-
 int main() {
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
     cin >> n >> m;
     memset(d, 0, sizeof(d));
-
     for (int i = 0; i < 1004; i++) p[i] = i;
-
     for (int i = 0; i < m; i++) cin >> a[i].u >> a[i].v >> a[i].c;
     sort(a, a + m);
-
     for (int i = 0; i < m; i++) {
         ll u = a[i].u, v = a[i].v, c = a[i].c;
         ll x = f(u), y = f(v);
@@ -60,9 +52,7 @@ int main() {
             v1[v].push_back({u, c});
         }
     }
-
     for (int i = 1; i <= n; i++) g(i);
-
     cin >> t;
     while (t--) {
         ll x, y;
