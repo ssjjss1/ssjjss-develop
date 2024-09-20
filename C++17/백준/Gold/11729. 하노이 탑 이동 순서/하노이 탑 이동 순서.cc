@@ -1,20 +1,18 @@
 #include<iostream>
-#include<cmath>
 using namespace std;
-long long int n,ans;
-void f(int n, int a, int b, int c) {
-	if (n == 1) {
-		cout << a << " " << c<<"\n";
-		return;
-	}
-	f(n - 1, a, c, b);
-	cout << a << " " << c<<"\n";
-	f(n - 1, b, a, c);
+int n;
+void f(int x, int y, int z,int cnt){
+      if(cnt==1){
+            cout<<x<<" "<<z<<"\n";
+            return;
+      }
+      f(x,z,y,cnt-1);
+      cout<<x<<" "<<z<<"\n";
+      f(y,x,z,cnt-1);
 }
-int main() {
-	ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-	cin >> n;
-	ans=pow(2, n) - 1;
-	cout << ans<<"\n";
-	f(n, 1, 2, 3);
+int main(){
+      ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+      cin>>n;
+      cout<<(1<<n)-1<<"\n";
+      f(1,2,3,n);
 }
