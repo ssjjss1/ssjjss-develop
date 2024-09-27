@@ -1,37 +1,29 @@
-#include <iostream>
-#include<vector>
+#include<iostream>
 #include<algorithm>
 using namespace std;
-void g(int a,int b,int x,vector<long long int>& k){
-  int middle;
-  middle=(a+b)/2;
-  if(a>b){
-    cout<<0<<"\n";
-    return;
-  }
-  if(k[middle]==x){
-    cout<<1<<"\n";
-    return;
-  }
-  else if(k[middle]<x) return g(middle+1,b,x,k);
-  else if(k[middle]>x) return g(a,middle-1,x,k);
-}
-int main() {
-  ios::sync_with_stdio(0);
-  cin.tie(0);
-  cout.tie(0);
-  long long int n,m;
-  cin>>n;
-  vector<long long int> k(n);
-  for(int i=0;i<n;i++){
-    cin>>k[i];
-  }
-  sort(k.begin(),k.end());
-  //f(k,0,n-1);
-  cin>>m;
-  long long int x;
-  for(int i=0;i<m;i++){
-    cin>>x;
-    g(0,n-1,x,k);
-  }
+int n,m;
+int a[100004];
+int main(){
+      ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
+      cin>>n;
+      for(int i=1;i<=n;i++) cin>>a[i];
+      sort(a+1, a+n+1);
+      cin>>m;
+      while(m--){
+            int x;
+            cin>>x;
+            int l=1,r=n;
+            bool flag=true;
+            while(l<=r){
+                  int mid=(l+r)/2;
+                  if(a[mid]==x) {
+                        cout<<1<<"\n";
+                        flag=false;
+                        break;
+                  }
+                  if(a[mid]<x) l=mid+1;
+                  if(a[mid]>x) r=mid-1;
+            }
+            if(flag) cout<<0<<"\n";
+      }
 }
