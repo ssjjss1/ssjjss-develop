@@ -10,7 +10,7 @@ int main(){
       for(int i=1;i<=n;i++) cin>>b[i];
       double left=0, right=l;
       double ans=0;
-      for(int i=1;i<=100;i++){
+      for(int i=1;i<=50;i++){
             double mid=(left+right)/2;
             double sum=0;
             for(int j=1;j<=n;j++) sum+=double(b[j]*(mid-a[j]));
