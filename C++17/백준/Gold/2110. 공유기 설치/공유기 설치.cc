@@ -1,32 +1,28 @@
 #include<iostream>
 #include<algorithm>
 using namespace std;
-typedef long long int ll;
-ll n,m;
-ll a[200004];
-int main(){
-  ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-  cin>>n>>m;
-  for(int i=0;i<n;i++){
-    cin>>a[i];
-  }
-  sort(a,a+n);
-  ll r=1,l=a[n-1]-a[0],ans=0;
-  while(r<=l){
-    ll middle=(r+l)/2;
-    ll cnt=1;
-    ll k=a[0];
-    for(int i=0;i<n;i++){
-      if(a[i]-k>=middle){
-        cnt+=1;
-        k=a[i];
-      }
+int n, c, ans;
+int d[200004];
+int main() {
+    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    cin >> n >> c;
+    for (int i = 1; i <= n; i++) cin >> d[i];
+    sort(d + 1, d + n + 1);
+    int l = 1, r = d[n] - d[1];
+    while (l <= r) {
+        int mid = (l + r) / 2, cnt = 1; 
+        int k = d[1]; 
+        for (int i = 2; i <= n; i++) {
+            if (d[i] - k >= mid) {
+                cnt++;
+                k = d[i]; 
+            }
+        }
+        if (cnt >= c) {
+            ans = mid;
+            l = mid + 1;
+        } 
+        else r = mid - 1; 
     }
-    if(cnt>=m){
-      ans=max(middle,ans);
-      r=middle+1;
-    }
-    else l=middle-1;
-  }
-  cout<<ans;
+    cout << ans;
 }
