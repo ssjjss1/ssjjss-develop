@@ -1,11 +1,11 @@
-#include<iostream>
+#include<bits/stdc++.h>
 using namespace std;
-int n;
-long long d[1504][1504],dp[1504][1504];//시작, 끝
+long long n;
+long long d[1504][1504], dp[1504][1504];
 int main(){
       ios::sync_with_stdio(0);cin.tie(0);cout.tie(0);
       cin>>n;
-      fill(&dp[0][0], &dp[0][0]+1504*1504,1e18);
+      fill(&dp[0][0], &dp[0][0]+1504*1504,1e18+7);
       for(int i=1;i<=n;i++){
             for(int j=1;j<=n;j++){
                   cin>>d[i][j];
@@ -18,7 +18,7 @@ int main(){
                   dp[i][i-1]=min(dp[i][i-1], d[i][j]+dp[i-1][j]);
             }
       }
-      long long ans=1e18;
+      long long ans=1e18+7;
       for(int i=1;i<=n;i++) ans=min(ans, dp[n][i]);
       cout<<ans;
 }
