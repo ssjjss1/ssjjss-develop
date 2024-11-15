@@ -17,7 +17,7 @@ int main() {
         int x = q.front();
         q.pop();
         for (int next : {x * 2, x + 1, x - 1}) {
-            if (next >= 0 && next <= 200000) {
+            if (next >= 0 && next <= 150000) {
                 if (visited[next] == -1) {
                     visited[next] = visited[x] + 1;
                     cnt[next] = cnt[x];
