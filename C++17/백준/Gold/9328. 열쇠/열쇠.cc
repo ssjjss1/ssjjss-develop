@@ -47,7 +47,6 @@ int main() {
                             key[cell - 'a'] = 1;
                             fill(visited.begin(), visited.end(), vector<int>(m + 2, 0));
                             q = queue<pair<int, int>>();
-                            q.push({xx, yy});
                         }
                         c[xx][yy] = '.';
                         q.push({xx, yy});
