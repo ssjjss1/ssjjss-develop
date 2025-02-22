@@ -26,10 +26,12 @@ int main(){
       idx=2;
       int sak=check(idx,n);
       if(sak<n) ans=min(ans, 2*(n-sak));
+      else ans=min(ans,2);
       
       idx=0;
       int aks=check(idx,n);
       if(aks<n-1) ans=min(ans, 2*(n-aks));
+      else ans=min(ans,4);
       
       cout<<ans;
 }
