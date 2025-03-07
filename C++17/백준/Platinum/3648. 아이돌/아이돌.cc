@@ -68,7 +68,7 @@ int main() {
 		      }
 		}
 		
-		cout<<(scc[2]<scc[3]?"yes\n":"no\n");
+		cout<<"yes\n";
 		next_case:;
 	}
 }
