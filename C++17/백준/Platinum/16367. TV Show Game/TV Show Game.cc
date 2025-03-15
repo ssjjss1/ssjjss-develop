@@ -38,7 +38,7 @@ void dfs(int x) {
 
 void build_2sat() {
     for (int j = 0; j < 3; j++) {
-        int x = test[j].second - 1;  // 1-based index를 0-based로 조정
+        int x = test[j].second - 1;
         int y = test[(j + 1) % 3].second - 1;
         int cx = (test[j].first == 'R');
         int cy = (test[(j + 1) % 3].first == 'R');
@@ -80,7 +80,7 @@ int main() {
     }
 
     vector<int> visited(k, 0);
-    vector<char> val(k, 'R'); 
+    vector<char> val(k); 
 
     for (auto& scc : SCC) {
         for (auto j : scc) {
