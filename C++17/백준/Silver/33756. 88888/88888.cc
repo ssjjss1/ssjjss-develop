@@ -13,19 +13,6 @@ void init() {
     sort(v.begin(), v.end(), greater<>());
 }
 
-void dfs(int cnt, long long re) {
-    if (flag || cnt > 8) return;
-    if (re == 0) {
-        flag = true;
-        return;
-    }
-    for (auto i : v) {
-        if (i <= re)
-            dfs(cnt + 1, re - i);
-        if (flag) return;
-    }
-}
-
 int main() {
     ios_base::sync_with_stdio(0);
     cin.tie(0);
@@ -37,9 +24,22 @@ int main() {
     while (t--) {
         long long n;
         cin >> n;
-        flag = false;
+        flag = true;
         
-        dfs(0, n);
+        int cnt=0;
+        
+        for(auto i:v){
+              cnt+=n/i;
+              
+              if(cnt>8) {
+                    flag=false;
+                    break;
+              }
+              
+              n%=i;
+        }
+        
+        if(n) flag=false;
         
         cout << (flag ? "Yes\n" : "No\n");
     }
