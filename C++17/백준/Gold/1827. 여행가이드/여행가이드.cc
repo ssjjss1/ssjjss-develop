@@ -16,8 +16,8 @@ pair<ld, ld> posP(int i, ld t) {
 }
 
 ld findXY(ld gx, ld gy, ld ct, int i) {
-    ld l = 0, r = 1e9;
-    while (r - l > 1e-6) { 
+    ld l = 0, r = 1e7;
+    while (r - l > 1e-5) { 
         ld middle = (l + r) / 2.0;
         auto [px, py] = posP(i, ct + middle);
         ld dist = hypot(px - gx, py - gy);
