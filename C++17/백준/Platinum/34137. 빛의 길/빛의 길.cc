@@ -1,79 +1,82 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
+using T = tuple<ll,ll,ll,ll>;
+const int INF = 200004;
 
-int main(){
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
+vector<ll> tree(INF*4);
+vector<ll> lazy(INF*4);
+ll n;
 
-    ll n;
-    int m, t, k;
-    cin >> n >> m >> t >> k;
-
-    vector<int> a(m);
-    for(int i = 0; i < m; i++){
-        cin >> a[i];
-    }
-
-    map<int, vector<tuple<int, int, int>>> mp;
-    for(int i = 0; i < k; i++){
-        int r, s, e, c;
-        cin >> r >> s >> e >> c;
-        mp[r].emplace_back(s, e, c);
-    }
-
-    map<int, int> mpc;
-    if (m > 0) mpc[1] = a[0];
-    for (int i = 1; i < m; i++) {
-        if (a[i] != a[i - 1]) {
-            mpc[i + 1] = a[i];
+void propagate(int node, int l, int r) {
+    if (lazy[node] != 0) {
+        tree[node] = lazy[node] * (r - l + 1);
+        if (l != r) {
+            lazy[node * 2] = lazy[node];      
+            lazy[node * 2 + 1] = lazy[node];
         }
+        lazy[node] = 0;
+    }
+}
+
+void update(int node,int l,int r,int x,int y,ll val){
+    propagate(node,l,r); 
+    if(x>r || l>y) return;
+    if(x<=l && r<=y){
+        tree[node] = val * (r - l + 1);
+        lazy[node] = val;
+        return;
     }
     
-    mp[n + 1];
+    int middle=(l+r)/2;
+    update(node*2,l,middle,x,y,val);
+    update(node*2+1,middle+1,r,x,y,val);
+    tree[node]=tree[node*2]+tree[node*2+1];
+}
 
-    vector<ll> ans(t + 4, 0);
-    ll lrow = 1;
+ll query(int node,int l,int r,int x,int y){
+    propagate(node,l,r); 
+    if(x>r||l>y) return 0;
+    if(x<=l && r<=y) return tree[node];
+    
+    int middle=(l+r)/2;
+    return query(node*2,l,middle,x,y)+query(node*2+1,middle+1,r,x,y);
+}
 
-    for (auto &[r, vec] : mp) {
-        ll nrow = (ll)r - lrow;
-        if (nrow > 0) {
-            auto it = mpc.begin();
-            while (it != mpc.end()) {
-                ll s = it->first;
-                int C = it->second;
-                auto nx = next(it);
-                ll e = ((nx == mpc.end()) ? m : nx->first - 1);
-                ll w = e - s + 1;
-                if (w > 0) {
-                    ans[C] += nrow * w;
-                }
-                it = nx;
-            }
-        }
-        
-        auto run = [&](int c) {
-            auto it = mpc.find(c);
-            if (it == mpc.end()) {
-                auto prev = --mpc.upper_bound(c);
-                mpc[c] = prev->second;
-            }
-        };
+int main(){
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
-        for (auto &[s, e, c] : vec) {
-            run(s); run(e + 1);
-            
-            auto is = mpc.find(s);
-            auto ie = mpc.find(e + 1);
-            
-            mpc.erase(is, ie);
-            mpc[s] = c;
-        }
-
-        lrow = r;
+    ll m,t,k;
+    cin>>n>>m>>t>>k;
+    vector<ll> a(m+4);
+    for(int i=1;i<=m;i++) {
+        cin>>a[i];
     }
 
-    for (int i = 1; i <= t; i++) {
-        cout << ans[i] << " ";
+    vector<T> qu(k);
+    for(int i=0;i<k;i++){
+        ll r,s,e,c;
+        cin>>r>>s>>e>>c;
+        qu[i]={r,s,e,c};
+    }
+
+    sort(qu.begin(),qu.end(),greater<T>());
+    vector<ll> cnt(t+4,0);
+
+    for(auto &[r,s,e,c]:qu){
+        ll h=n-r+1;
+        ll res=query(1,1,INF,s,e);
+        cnt[c]+=h*(e-s+1)-res;
+        update(1,1,INF,s,e,h);
+    }
+
+    for(int i=1;i<=m;i++){
+        ll res=query(1,1,INF,i,i);
+        cnt[a[i]]+=n-res;
+    }
+
+    for(int i=1;i<=t;i++) {
+        cout<<cnt[i]<<" ";
     }
 }
